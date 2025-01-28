@@ -1,61 +1,62 @@
-#Defeat The Evil Wizard
+# Defeat the Evil Wizard
 
-Overview:
-
-This is a text-based RPG featuring different character classes. You can choose between a Warrior, Mage, Archer, or Paladin, each with unique stats and special abilities. Your goal is to  battle an Evil Wizard and emerge victorious!
-
----
-
-Features:
-
-Classes: Warrior, Mage, Archer, and Paladin.
-
-Combat System: Turn-based. You can attack, use special abilities, and heal.
-
-Special Abilities and Cooldowns: Once used, special abilities have a cooldown before you can use them again.
-
-Stun, Evade, and Reflect: Certain classes have abilities that stun, dodge or reflect.
+## Overview
+This project is a turn-based battle game where the player creates a hero character to battle the powerful Evil Wizard. The game demonstrates the use of Object-Oriented Programming (OOP) principles to create a dynamic and interactive gameplay experience. Players can attack, heal, use special abilities, and view stats to strategize and win the battle.
 
 ---
 
-Class Breakdown
+## Features
 
-Warrior: High health, moderate attack. Specials: Summon Dragon (damages both enemy and self) or Ground Smash (stun next turn).
+- **Character Classes**: Choose from four unique hero classes:
+  - **Warrior**: A melee fighter with high health and special abilities like "Summon Dragon" and "Ground Smash."
+  - **Mage**: A spellcaster with high damage output and abilities like "Reflect" and "Power Spell."
+  - **Archer**: A ranged attacker with abilities like "Quick Shot" and "Evade."
+  - **Paladin**: A defensive hero with abilities like "Holy Strike" and "Divine Shield."
 
-Mage: Lower health, higher attack. Specials: Reflect (reflect a portion of incoming damage) or Power Spell (boost attack power for two turns).
+- **Evil Wizard Enemy**:
+  - Attacks and regenerates health each turn.
+  - Challenges the player to strategize and adapt.
 
-Archer: Balanced health and attack. Specials: Quick Shot (double hit) or Evade (avoid the next hit).
+- **Gameplay Mechanics**:
+  - **Randomized Attack Damage**: Each attack deals damage within a random range for unpredictability.
+  - **Healing Mechanic**: Restore health without exceeding the maximum.
+  - **Special Abilities**: Unique abilities for each hero class to add tactical depth.
+  - **Turn-Based Combat**: Players take turns to attack, heal, or use abilities while managing cooldowns and status effects.
 
-Paladin: Good health, moderate attack, plus healing. Specials: Holy Strike (bonus damage) or Divine Shield (block next attack).
-
----
-
-Special Abilities and Cooldowns
-
-You can only use your special ability if it is off cooldown.
-
-After using a special, you must wait 5 turns before using it again.
-
----
-
-Heal Mechanics
-
-Each character has a heal amount that it can use if it is not already at full health.
-
-Healing replenishes up to the character’s maximum health (no overhealing).
+- **Dynamic Battle System**:
+  - Players choose actions like attacking, healing, or using abilities during their turn.
+  - The Evil Wizard fights back with powerful attacks and healing.
 
 ---
 
-Stun and Evade Mechanics
-
-Stun: Target cannot attack on its next turn.
-
-Evade: Negate the next incoming attack.
+## Learning Objectives
+- Understand and implement OOP principles like inheritance, methods, and object interactions.
+- Design interactive programs with a menu-driven system.
+- Develop game logic for engaging and strategic gameplay.
 
 ---
 
-Reflect Mechanic (Mage)
+## Project Structure
 
-Reflects 75% of the damage dealt by the next incoming attack back to the attacker.
+### Files
+- `defeatTheEvilWizard.py`: Contains the full implementation of the game, including character classes, abilities, and battle logic.
+- `README.md` (this file): Explains the game, its features, and instructions for running it.
 
-Only remains active for one incoming attack.
+---
+
+## Game Instructions
+
+1. **Create Your Character**:
+   - Choose from Warrior, Mage, Archer, or Paladin.
+   - Enter a name for your character.
+
+2. **Battle the Evil Wizard**:
+   - Select actions during your turn:
+     - Attack the Evil Wizard.
+     - Use your character's special abilities.
+     - Heal to regain health.
+     - View your character's stats.
+
+3. **Win or Lose**:
+   - Defeat the Evil Wizard to win.
+   - If your health drops to zero, you lose.
