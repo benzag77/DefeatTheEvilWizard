@@ -8,10 +8,11 @@ This project is a turn-based battle game where the player creates a hero charact
 ## Features
 
 - **Character Classes**: Choose from four unique hero classes:
-  - **Warrior**: A melee fighter with high health and special abilities like "Summon Dragon" and "Ground Smash."
-  - **Mage**: A spellcaster with high damage output and abilities like "Reflect" and "Power Spell."
+  - **Warrior**: A melee fighter with high health and abilities like "Summon Dragon" and "Ground Smash."
+  - **Mage**: A spellcaster with high damage output but low health and abilities like "Reflect" and "Power Spell."
   - **Archer**: A ranged attacker with abilities like "Quick Shot" and "Evade."
   - **Paladin**: A defensive hero with abilities like "Holy Strike" and "Divine Shield."
+  - **Orc**: A brute fighter with high damage and both offensive and defensive abilities like "Manic Strike" and "Regrowth"
 
 - **Evil Wizard Enemy**:
   - Attacks and regenerates health each turn.
@@ -30,24 +31,17 @@ This project is a turn-based battle game where the player creates a hero charact
 ---
 
 ## Learning Objectives
+
 - Understand and implement OOP principles like inheritance, methods, and object interactions.
 - Design interactive programs with a menu-driven system.
 - Develop game logic for engaging and strategic gameplay.
 
 ---
 
-## Project Structure
-
-### Files
-- `defeatTheEvilWizard.py`: Contains the full implementation of the game, including character classes, abilities, and battle logic.
-- `README.md` (this file): Explains the game, its features, and instructions for running it.
-
----
-
 ## Game Instructions
 
 1. **Create Your Character**:
-   - Choose from Warrior, Mage, Archer, or Paladin.
+   - Choose from Warrior, Mage, Archer, Paladin or Orc.
    - Enter a name for your character.
 
 2. **Battle the Evil Wizard**:

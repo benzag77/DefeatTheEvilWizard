@@ -1,8 +1,10 @@
 import random
 
 class Character:
+
     """Base class for all game characters with basic attributes and actions"""
     def __init__(self, name, health, attack_power, heal):
+
         self.name = name
         self.health = health
         self.attack_power = attack_power
@@ -12,6 +14,7 @@ class Character:
         self.ability_cooldown = 0
 
     def attack(self, opponent):
+
         random_attack = random.randint(1, self.attack_power)
         opponent.health -= random_attack
         print(f"{self.name} attacks {opponent.name} for {random_attack} damage!")
@@ -23,6 +26,7 @@ class Character:
 
 
     def heal(self):
+
         # Only heal up to max_health to avoid overhealing
         healing_needed = self.max_health - self.health
         actual_heal = min(self.heal_amount, healing_needed)
@@ -37,31 +41,40 @@ class Character:
         return self.ability_cooldown == 0
 
 
+class EvilWizard(Character):
+
+    #Main enemy class
+    def __init__(self, name):
+        super().__init__(name, health=150, attack_power=15, heal=5)
+
+
 class Warrior(Character):
 
     def __init__(self, name):
-        super().__init__(name, health=140, attack_power=25, heal=2)
+        super().__init__(name, health=135, attack_power=25, heal=5)
         self.dragon_turns = 0
     
     # Adds dragon damage when summoned
     def attack(self, opponent):
+
         random_attack = random.randint(1, self.attack_power)
         if self.dragon_turns > 0:
-            opponent.health -= 20
+            opponent.health -= 15
             self.health -= 5
             self.dragon_turns -= 1
-            print(f"Dragon deals 20 additional damage to {opponent.name} and 5 damage to {self.name}!")
+            print(f"Dragon deals 15 additional damage to {opponent.name} and 5 damage to {self.name}!")
         opponent.health -= random_attack
         print(f"{self.name} attacks {opponent.name} for {random_attack} damage!")
         if opponent.health <= 0:
             print(f"{opponent.name} has been defeated!")
 
     def special_ability(self, opponent):
+
         while True:
             print('''
 --- Choose Special Ability: ---
-1. Summon Dragon (deals 20 damage to opponent but 5 to self for two turns)
-2. Ground Smash (stuns opponent for one turn)
+1. Summon Dragon (deals 15 damage to opponent but 5 to self for two turns)
+2. Ground Smash (stuns opponent for one turn and deals 8 damage)
 ''')
             choice = input("Choose what special ability you want to use (1 or 2): \n")
             
@@ -73,23 +86,26 @@ class Warrior(Character):
 
             if choice == 1:
                 self.dragon_turns = 2
-                opponent.health -= 20
+                opponent.health -= 15
                 self.health -= 5
-                print(f"{self.name} summons a dragon! It deals 20 damage to {opponent.name} and 5 damage to {self.name}!")
+                print(f"{self.name} summons a dragon! It deals 15 damage to {opponent.name} and 5 damage to {self.name}!")
                 break
             elif choice == 2:
                 opponent.is_stunned = True
-                print(f"{self.name} performs Ground Smash! {opponent.name} is stunned for the next turn!")
+                opponent.health -= 8
+                print(f"{self.name} performs Ground Smash! {opponent.name} is stunned for the next turn and takes 8 damage!")
                 break
+
 
 class Mage(Character):
 
     def __init__(self, name):
-        super().__init__(name, health=110, attack_power=35, heal=5)
+        super().__init__(name, health=110, attack_power=32, heal=8)
         self.power_spell_turns = 0
         self.reflect_active = False
 
     def attack(self, opponent):
+
         # Apply power spell damage boost if active
         if self.power_spell_turns > 0:
             random_attack = random.randint(1, int(self.attack_power * 1.5))
@@ -104,6 +120,7 @@ class Mage(Character):
             print(f"{opponent.name} has been defeated!")
 
     def special_ability(self, opponent):
+
         while True:
             print('''
 --- Choose Special Ability: ---
@@ -130,16 +147,10 @@ class Mage(Character):
                 print("Invalid choice. Try again.")
 
 
-class EvilWizard(Character):
-    #Main enemy class
-    def __init__(self, name):
-        super().__init__(name, health=150, attack_power=15, heal=5)
-
-
 class Archer(Character):
 
     def __init__(self, name):
-        super().__init__(name, health=125, attack_power=30, heal=2)
+        super().__init__(name, health=120, attack_power=28, heal=5)
 
 
     def special_ability(self, opponent):
@@ -148,7 +159,7 @@ class Archer(Character):
             print('''
 --- Choose Special Ability: ---
 1. Quick Shot (double arrow attack)
-2. Evade (avoid next attack)
+2. Evade (evades the next attack)
 ''')
         
             choice = input("Choose what special ability you want to use (1 or 2): \n")
@@ -176,7 +187,7 @@ class Archer(Character):
 class Paladin(Character):
 
     def __init__(self, name):
-        super().__init__(name, health=140, attack_power=20, heal=10)
+        super().__init__(name, health=130, attack_power=20, heal=12)
 
 
     def special_ability(self, opponent):
@@ -199,30 +210,77 @@ class Paladin(Character):
             if choice == 1:
                 random_attack = 10 + random.randint(1, self.attack_power)
                 opponent.health -= random_attack
-                print(f"{self.name} attacks {opponent.name} with special ability Holy Strike for {random_attack} damage!")
+                print(f"{self.name} attacks {opponent.name} with Holy Strike for {random_attack} damage!")
                 if opponent.health <= 0:
                     print(f"{opponent.name} has been defeated!")
                 break
 
             elif choice == 2:
                 self.evade_next_attack = True
-                print(f"{self.name} uses special ability Divine Shield to block the next attack!")
+                print(f"{self.name} uses Divine Shield to block the next attack!")
+                break
+
+class Orc(Character):
+
+    def __init__(self, name):
+        super().__init__(name, health=135, attack_power=30, heal=5)
+        self.regrowth_turns = 0
+        self.regrowth_amount = 10
+
+    def regrowth(self):
+        
+        if self.regrowth_turns > 0:
+            self.health += self.regrowth_amount
+            self.regrowth_turns -= 1
+            print(f"{self.name} heals for {self.regrowth_amount} health due to Regrowth! Current health: {self.health}")
+
+    def special_ability(self, opponent):
+
+        while True:
+            print('''
+--- Choose Special Ability: ---
+1. Manic Strike (30 damage for one turn but can't attack next turn)
+2. Regrowth (heals for 10 health for 2 turns)
+''')
+
+            choice = input("Choose what special ability you want to use (1 or 2): \n")
+        
+            if not choice.isdigit():
+                print("Invalid input. Please enter a number between 1 and 2.")
+                continue
+
+            choice = int(choice)
+
+            if choice == 1:
+                opponent.health -= 30
+                self.is_stunned = True
+                print(f"{self.name} uses Manic Strike! Deals 30 damage to {opponent.name} but can't attack next turn!")
+                if opponent.health <= 0:
+                    print(f"{opponent.name} has been defeated!")
+                break
+
+            elif choice == 2:
+                self.regrowth_turns = 2
+                print(f"{self.name} uses Regrowth to heal for {self.regrowth_amount} health for the next two turns!")
                 break
 
 
 def create_character():
+
     """
     Character creation function that:
     1. Displays available classes
     2. Takes user input for class selection and name
     3. Returns the created character instance
     """
+
     print('''
 --- Choose your character class: ---
 1. Warrior
 2. Mage
 3. Archer
 4. Paladin
+5. Orc
 ''' )
 
     class_choice = input("Enter the number of your class choice: \n")
@@ -232,7 +290,8 @@ def create_character():
         '1': Warrior,
         '2': Mage,
         '3': Archer,
-        '4': Paladin
+        '4': Paladin,
+        '5': Orc
     }
 
     chosen_class = options.get(class_choice, Warrior)
@@ -242,12 +301,14 @@ def create_character():
     return chosen_class(name)
 
 def battle(player, wizard):
+
     """
     Main battle loop that manages:
     - Turn-based combat with player and wizard actions
     - Ability cooldowns and status effects (stun, evade, reflect)
     - Health tracking and battle outcome
     """
+
     player.evade_next_attack = False
     turn_count = 0
     
@@ -258,6 +319,10 @@ def battle(player, wizard):
             player.ability_cooldown -= 1
 
         valid_action = False
+
+        if isinstance(player, Orc):
+            player.regrowth()
+        
         while not valid_action:
             print('''
 --- Your Turn: ---
@@ -277,7 +342,7 @@ def battle(player, wizard):
             elif choice == '2':
                 if player.can_use_special():
                     player.special_ability(wizard)
-                    player.ability_cooldown = 5
+                    player.ability_cooldown = 6
                     valid_action = True
                 else:
                     print(f"Special ability is on cooldown for {player.ability_cooldown} more turns!")
@@ -291,7 +356,7 @@ def battle(player, wizard):
             else:
                 print("Invalid choice. Try again.")
 
-        # Wizard's turn only happens after valid player action
+        # Wizard's turn only happens after valid player action to avoid special ability use when on cooldown to have the wizard never attack or heal
         if wizard.health > 0:
             if wizard.is_stunned:
                 print(f"{wizard.name} is stunned and cannot attack!")
@@ -305,6 +370,7 @@ def battle(player, wizard):
                 if isinstance(player, Mage) and player.reflect_active:
                     reflect_damage = int(wizard_attack * 0.75)
                     wizard.health -= reflect_damage
+                    player.health += reflect_damage
                     print(f"{player.name} reflects {reflect_damage} damage back to {wizard.name}!")
                     player.reflect_active = False
             else:
@@ -314,7 +380,7 @@ def battle(player, wizard):
             wizard.heal()
 
         if player.health <= 0:
-            print(f"{player.name} has been defeated! Opponent health: {wizard.health}")
+            print(f"Game Over! {player.name} has been defeated! Wizard's health: {wizard.health}")
             break
 
     if wizard.health <= 0:
@@ -322,6 +388,7 @@ def battle(player, wizard):
 
 
 def main():
+
     #Entry point of the game - creates characters and initiates battle
     player = create_character()
     wizard = EvilWizard("The Dark Wizard")
